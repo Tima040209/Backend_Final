@@ -1,0 +1,37 @@
+<h1>Welcome, {{ request.user.username }}</h1>
+
+<h2>Your Orders</h2>
+<ul>
+    {% for order in orders %}
+    <li>
+        Order #{{ order.id }} - Total: {{ order.total_amount }}$
+        <ul>
+            {% for item in order.items.all %}
+            <li>{{ item.product.name }} x {{ item.quantity }} ({{ item.price }}$ each)</li>
+            {% endfor %}
+        </ul>
+    </li>
+    {% endfor %}
+</ul>
+
+<h2>Your Cart</h2>
+{% if cart %}
+<ul>
+    {% for item in cart.items.all %}
+    <li>{{ item.product.name }} x {{ item.quantity }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>Your cart is empty.</p>
+{% endif %}
+
+<h2>Your Wishlist</h2>
+{% if wishlist %}
+<ul>
+    {% for item in wishlist.items.all %}
+    <li>{{ item.product.name }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>Your wishlist is empty.</p>
+{% endif %}
